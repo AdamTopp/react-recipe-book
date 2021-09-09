@@ -66,9 +66,11 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation, deleteRe
                     <button className='description' onClick={() => setDescription(!description)}>D</button>
                     <div className="preparation">{preparation}</div>
                     <div className="ingredients">
-                        <p>{ingredients.map(element => {
-                            return(element + " ")  
-                        })}</p>
+                        <div>{
+                        ingredients.map(element => {
+                            return(<p key={element.id}>{element.name}</p>)  
+                        })
+                        }</div>
                     </div>
                 </div>
             )

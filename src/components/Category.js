@@ -1,7 +1,16 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 
 const Category = ({name, selectCategory, deselectCategory, id}) => {
     const [selected, setSelected] = useState(false);
+    const [style, setStyle] = useState({color:"black"});
+
+    useEffect(() => {
+        if(selected) {
+            setStyle({color:"green",fontSize:"30px"});
+        } else {
+            setStyle({color:"white", fontSize:"30px"});
+        }   
+    }, [selected])
 
     const chooseCategory = (id) => {
         if(selected) {
@@ -16,7 +25,7 @@ const Category = ({name, selectCategory, deselectCategory, id}) => {
     //Render
     console.log("Rendering - Category");
     return (
-        <div onClick={() => chooseCategory(id)}>
+        <div style={style} onClick={() => chooseCategory(id)}>
             {name}
         </div>
     )

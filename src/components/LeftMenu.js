@@ -1,7 +1,7 @@
 import React , {useState} from 'react'
 import { useEffect } from 'react/cjs/react.development';
 
-const LeftMenu = ({addRecipe, filterIngredient, filterReset, categories, selectedCategories}) => {
+const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxPrice, setSelectedMinPrice}) => {
     //Toggle menu
     const [toggle, setToggle] = useState(0);
     
@@ -25,12 +25,6 @@ const LeftMenu = ({addRecipe, filterIngredient, filterReset, categories, selecte
         setType(categories[0].name);
     }, [categories])
 
-    useEffect(() => {
-        setMinPrice(0);
-        setMaxPrice(1000);
-        setIngredient('');
-    }, [selectedCategories])
-
     const onSubmit = (e) => {
         e.preventDefault();
         const newRecipe = {
@@ -47,12 +41,19 @@ const LeftMenu = ({addRecipe, filterIngredient, filterReset, categories, selecte
     //Filters
     const onFilter = (e) => {
         e.preventDefault();
-        filterIngredient(ingredient, minPrice, maxPrice);
+        setSelectedIngredient(ingredient);
+        setSelectedMaxPrice(maxPrice);
+        setSelectedMinPrice(minPrice)
     }
 
     const onFilterClear = (e) => {
-        filterReset();
+        setMinPrice(0);
+        setMaxPrice(1000);
         setIngredient('');
+
+        setSelectedIngredient('');
+        setSelectedMaxPrice(1000);
+        setSelectedMinPrice(0)
     }
 
     //Render

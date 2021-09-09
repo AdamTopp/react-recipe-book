@@ -11,6 +11,9 @@ function App() {
   const [filteredRecipes, setFilteredRecipes] = useState(data);
   const [categories, setCategories] = useState([{id:1, name:"Dinner"}, {id:2, name:"Breakfast"}]);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedIngredient, setSelectedIngredient] = useState('');
+  const [selectedMinPrice, setSelectedMinPrice] = useState(0);
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState(1000);
 
   //Recipe Management
   const addRecipe = (newRecipe) => {
@@ -52,35 +55,31 @@ function App() {
     return check;
   }
 
+  //Filter and Category changes
   useEffect(() => {
     if(selectedCategories.length === 0) {
-      const newRecipes = recipes;
-      setFilteredRecipes(newRecipes);
+      if(selectedIngredient === '') {
+        const newRecipes = recipes.filter(r => r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
+        setFilteredRecipes(newRecipes);
+      } else {
+        const newRecipes = recipes.filter(r => r.ingredients.includes(selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);;
+        setFilteredRecipes(newRecipes);
+      }
     } else {
-      const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type));
-      setFilteredRecipes(newRecipes);
+      if(selectedIngredient === '') {
+        const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
+        setFilteredRecipes(newRecipes);
+      } else {
+        const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.ingredients.includes(selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
+        setFilteredRecipes(newRecipes);
+      }
     }   
-  }, [selectedCategories, recipes]);
-
-  //Filter Management
-  const filterIngredient = (ingredient, minPrice, maxPrice) => {
-    if(ingredient==='') {
-      const fr = filteredRecipes.filter(r => r.price>=minPrice && r.price<=maxPrice);
-      setFilteredRecipes(fr);
-    } else {
-      const fr = filteredRecipes.filter(r => r.ingredients.includes(ingredient) && r.price>=minPrice && r.price<=maxPrice);
-      setFilteredRecipes(fr);
-    }
-  }
-
-  const filterReset = () => {
-    setFilteredRecipes(recipes);
-  }
+  }, [selectedCategories, recipes, selectedIngredient, selectedMaxPrice, selectedMinPrice]);
 
   //Return
   return (
     <div>
-        <LeftMenu addRecipe={addRecipe} filterIngredient={filterIngredient} filterReset={filterReset} categories={categories} selectedCategories={selectedCategories}/>
+        <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
         <RecipeTable recipes={filteredRecipes} deleteRecipe={deleteRecipe} editRecipes={editRecipes}/>
         <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>
     </div>

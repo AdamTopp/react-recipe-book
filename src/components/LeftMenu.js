@@ -12,6 +12,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
     const [days, setDays] = useState(0);
     const [ingredients, setIngredients] = useState([]);
     const [ingredient, setIngredient] = useState('');
+    const [description, setDescription] = useState("");
 
     //Filter Information
     const [filteredIngredient, setFilteredIngredient] = useState('');
@@ -35,6 +36,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
             type,
             days: +days,
             ingredients: ingredients,
+            preparation: description
         }
         addRecipe(newRecipe);
     }
@@ -65,83 +67,73 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
         setIngredients([...ingredients, newIngredient]);
     }
 
+    const deleteIngredient = (id) => {
+        const newIngredients = ingredients.filter(ing => ing.id !== id);
+        setIngredients(newIngredients);
+    }
+
     useEffect(()=> {
         setIngredient('');
     },[ingredients])
 
     //Render
     console.log("Rendering - Left Menu");
-    if(toggle === 0) {
+    if(toggle === 0) { //Menu icons
         return (
             <div>
                 <button onClick={() => setToggle(1)}>+</button>
                 <button onClick={() => setToggle(2)}>F</button>
             </div>
-        )
-        
-    } else if(toggle === 1) {
+        )    
+    } else if(toggle === 1) { //Adding menu
         return (
             <div className='MenuLeft'>
                 <h3>Add new recipes</h3>
                 <div>
                     <div>
                         <label htmlFor="name">Name</label>
-                        <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
+                        <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
                     </div>
                     <div>
                         <label htmlFor="type">Category</label>
-                        <select value={type} onChange={(e) => setType(e.target.value)}>
+                        <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
                             {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
                         </select>
                     </div>
 
                     <div>
                         <label htmlFor="ingredients">Ingredients</label>
-                        {ingredients.map(ing => <div key={ing.id}>{ing.name}</div>)}
-                        <input type="text" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
+                        {ingredients.map(ing => <div key={ing.id}>
+                            {ing.name}
+                            <button onClick={() => deleteIngredient(ing.id)}>X</button>
+                        </div>)}
+                        <input type="text" id="ingredients" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
                         <button onClick={() => addIngredient()}>Add</button>
                     </div>
 
                     <div>
                         <label htmlFor="price">Price</label>
-                        <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
+                        <input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
                     </div>
                     <div>
                         <label htmlFor="days">Days</label>
-                        <input type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
+                        <input id="days" type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
+                    </div>
+                    <div>
+                        <label htmlFor="description">Description</label>
+                        <div>
+                            <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description..."/>
+                        </div>
                     </div>
                     <button className="btn" onClick={() => onSubmit()}>Add</button>
                     <button onClick={() => setToggle(0)}>Cancel</button>
                 </div>
             </div>
         )
-    } else if(toggle === 2) {
+    } else if(toggle === 2) { //Filter menu
         return (
             <div className='MenuLeft'>
                 <h3>Filter recipes</h3>
-                <form onSubmit={onFilter}>
-                    <div>
-                        <label htmlFor="ingredient">Ingredient</label>
-                        <input type="text" value={filteredIngredient} onChange={(e) => setFilteredIngredient(e.target.value)} placeholder="Ingredient..."/>
-                    </div>
-                    <div>
-                        <label htmlFor="minPrice">Min</label>
-                        <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} id="minPrice" required="required" placeholder="Min Price..."/>
-                    </div>
-                    <div>
-                        <label htmlFor="maxPrice">Max</label>
-                        <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} id="maxPrice" required="required" placeholder="Max Price..."/>
-                    </div>
-                    <button className="btn">Filter</button>
-                </form>
-                <button onClick={() => onFilterClear()}>Clear</button>
-                <button onClick={() => setToggle(0)}>Cancel</button>
-            </div>
-        ) 
-    } else if(toggle === 3) {
-        return (
-            <div className='MenuLeft'>
-                <h3>Edit recipe</h3>
                 <form onSubmit={onFilter}>
                     <div>
                         <label htmlFor="ingredient">Ingredient</label>

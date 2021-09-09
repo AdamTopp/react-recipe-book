@@ -10,9 +10,11 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
     const [type, setType] = useState('');
     const [price, setPrice] = useState(0);
     const [days, setDays] = useState(0);
+    const [ingredients, setIngredients] = useState([]);
+    const [ingredient, setIngredient] = useState('');
 
     //Filter Information
-    const [ingredient, setIngredient] = useState('');
+    const [filteredIngredient, setFilteredIngredient] = useState('');
     const [minPrice, setMinPrice] = useState(0);
     const [maxPrice, setMaxPrice] = useState(0);
 
@@ -25,15 +27,14 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
         setType(categories[0].name);
     }, [categories])
 
-    const onSubmit = (e) => {
-        e.preventDefault();
+    const onSubmit = () => {
         const newRecipe = {
             id: Math.floor(Math.random() * 10000000),
             name,
             price: +price,
             type,
             days: +days,
-            ingredients: ['kiełbasa', 'ser'],
+            ingredients: ingredients,
         }
         addRecipe(newRecipe);
     }
@@ -41,7 +42,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
     //Filters
     const onFilter = (e) => {
         e.preventDefault();
-        setSelectedIngredient(ingredient);
+        setSelectedIngredient(filteredIngredient);
         setSelectedMaxPrice(maxPrice);
         setSelectedMinPrice(minPrice)
     }
@@ -55,6 +56,18 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
         setSelectedMaxPrice(1000);
         setSelectedMinPrice(0)
     }
+
+    const addIngredient = () => {
+        const newIngredient = {
+            id: Math.floor(Math.random() * 10000000),
+            name: ingredient
+        }
+        setIngredients([...ingredients, newIngredient]);
+    }
+
+    useEffect(()=> {
+        setIngredient('');
+    },[ingredients])
 
     //Render
     console.log("Rendering - Left Menu");
@@ -70,7 +83,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
         return (
             <div className='MenuLeft'>
                 <h3>Add new recipes</h3>
-                <form onSubmit={onSubmit}>
+                <div>
                     <div>
                         <label htmlFor="name">Name</label>
                         <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
@@ -81,6 +94,14 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                             {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
                         </select>
                     </div>
+
+                    <div>
+                        <label htmlFor="ingredients">Ingredients</label>
+                        {ingredients.map(ing => <div key={ing.id}>{ing.name}</div>)}
+                        <input type="text" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
+                        <button onClick={() => addIngredient()}>Add</button>
+                    </div>
+
                     <div>
                         <label htmlFor="price">Price</label>
                         <input type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
@@ -89,9 +110,9 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                         <label htmlFor="days">Days</label>
                         <input type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
                     </div>
-                    <button className="btn">Add</button>
+                    <button className="btn" onClick={() => onSubmit()}>Add</button>
                     <button onClick={() => setToggle(0)}>Cancel</button>
-                </form>
+                </div>
             </div>
         )
     } else if(toggle === 2) {
@@ -101,7 +122,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                 <form onSubmit={onFilter}>
                     <div>
                         <label htmlFor="ingredient">Ingredient</label>
-                        <input type="text" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Ingredient..."/>
+                        <input type="text" value={filteredIngredient} onChange={(e) => setFilteredIngredient(e.target.value)} placeholder="Ingredient..."/>
                     </div>
                     <div>
                         <label htmlFor="minPrice">Min</label>
@@ -124,7 +145,7 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                 <form onSubmit={onFilter}>
                     <div>
                         <label htmlFor="ingredient">Ingredient</label>
-                        <input type="text" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Ingredient..."/>
+                        <input type="text" value={filteredIngredient} onChange={(e) => setFilteredIngredient(e.target.value)} placeholder="Ingredient..."/>
                     </div>
                     <div>
                         <label htmlFor="minPrice">Min</label>

@@ -19,7 +19,7 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation, deleteRe
             price: +_price,
             type: _type,
             days: +_days,
-            ingredients: ['kiełbasa', 'ser'],
+            ingredients,
         }
         editRecipes(id, newRecipe);
         setEdit(!edit);

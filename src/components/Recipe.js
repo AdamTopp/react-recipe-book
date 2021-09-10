@@ -1,11 +1,12 @@
-import React, {useContext, useState} from 'react'
-import {deleteRecipeContext, editRecipeContext} from '../App'
+import React, {useContext, useState, useEffect} from 'react'
+import {deleteRecipeContext, editRecipeContext, categoriesContext} from '../App'
 
 const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
     //Context
     const deleteRecipe = useContext(deleteRecipeContext);
     const editRecipe = useContext(editRecipeContext);
-    
+    const categories = useContext(categoriesContext);
+
     //Toggle menus
     const [description, setDescription] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -15,16 +16,36 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
     const [_type, _setType] = useState(type);
     const [_price, _setPrice] = useState(price);
     const [_days, _setDays] = useState(days);
+    const [_description, _setDescription] = useState(preparation);
+    const [_ingredients, _setIngredients] = useState(ingredients);
+    const [_ingredient, _setIngredient] = useState('');
+
+    const addIngredient = () => {
+        const newIngredient = {
+            id: Math.floor(Math.random() * 10000000),
+            name: _ingredient
+        }
+        _setIngredients([..._ingredients, newIngredient]);
+    }
+
+    const deleteIngredient = (id) => {
+        const newIngredients = ingredients.filter(ing => ing.id !== id);
+        _setIngredients(newIngredients);
+    }
+
+    useEffect(()=> {
+        _setIngredient('');
+    },[ingredients])
 
     const onSubmit = (e) => {
-        e.preventDefault();
         const newRecipe = {
             id,
             name: _name,
             price: +_price,
             type: _type,
             days: +_days,
-            ingredients,
+            ingredients: _ingredients,
+            preparation: _description
         }
         editRecipe(id, newRecipe);
         setEdit(!edit);
@@ -36,26 +57,43 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
             return (
                 <div className="Recipe">
                     <hr></hr>
-                    <form onSubmit={onSubmit}>
                     <div>
                         <label htmlFor="name">Name</label>
-                        <input type="text" value={_name} onChange={(e) => _setName(e.target.value)} placeholder="Name..."/>
+                        <input id="name" type="text" value={_name} onChange={(e) => _setName(e.target.value)} placeholder="Name..."/>
                     </div>
                     <div>
-                        <label htmlFor="type">Type</label>
-                        <input type="text" value={_type} onChange={(e) => _setType(e.target.value)} placeholder="Type..."/>
+                        <label htmlFor="type">Category</label>
+                        <select id="type" value={_type} onChange={(e) => _setType(e.target.value)}>
+                            {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
+                        </select>
                     </div>
+
+                    <div>
+                        <label htmlFor="ingredients">Ingredients</label>
+                        {_ingredients.map(ing => <div key={ing.id}>
+                            {ing.name}
+                            <button onClick={() => deleteIngredient(ing.id)}>X</button>
+                        </div>)}
+                        <input type="text" id="ingredients" value={_ingredient} onChange={(e) => _setIngredient(e.target.value)} placeholder="Name..."/>
+                        <button onClick={() => addIngredient()}>Add</button>
+                    </div>
+
                     <div>
                         <label htmlFor="price">Price</label>
-                        <input type="number" value={_price} onChange={(e) => _setPrice(e.target.value)} placeholder="Price..."/>
+                        <input id="price" type="number" value={_price} onChange={(e) => _setPrice(e.target.value)} placeholder="Price..."/>
                     </div>
                     <div>
                         <label htmlFor="days">Days</label>
-                        <input type="number" value={_days} onChange={(e) => _setDays(e.target.value)} placeholder="Days..."/>
+                        <input id="days" type="number" value={_days} onChange={(e) => _setDays(e.target.value)} placeholder="Days..."/>
                     </div>
-                    <button className="btn">Add</button> 
-                </form>
-                <button onClick={() => setEdit(!edit)}>Cancel</button>
+                    <div>
+                        <label htmlFor="description">Description</label>
+                        <div>
+                            <textarea id="description" value={_description} onChange={(e) => _setDescription(e.target.value)} placeholder="Description..."/>
+                        </div>
+                    </div>
+                    <button className="btn" onClick={() => onSubmit()}>Add</button>
+                    <button onClick={() => setEdit(!edit)}>Cancel</button>
                 </div>
             )
     } else {

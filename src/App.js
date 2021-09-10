@@ -7,6 +7,7 @@ import RightMenu from "./components/RightMenu";
 
 export const deleteRecipeContext = React.createContext();
 export const editRecipeContext = React.createContext();
+export const categoriesContext = React.createContext();
 
 function App() {
 
@@ -85,7 +86,9 @@ function App() {
         <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
         <deleteRecipeContext.Provider value={deleteRecipe}>
           <editRecipeContext.Provider  value={editRecipes}>
-            <RecipeTable recipes={filteredRecipes}/>
+            <categoriesContext.Provider  value={categories}>
+              <RecipeTable recipes={filteredRecipes}/>
+            </categoriesContext.Provider>
           </editRecipeContext.Provider>
         </deleteRecipeContext.Provider>
         <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>

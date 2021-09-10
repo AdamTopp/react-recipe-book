@@ -5,6 +5,9 @@ import RecipeTable from "./components/RecipeTable";
 import './App.css'
 import RightMenu from "./components/RightMenu";
 
+export const deleteRecipeContext = React.createContext();
+export const editRecipeContext = React.createContext();
+
 function App() {
 
   const [recipes, setRecipes] = useState(data);
@@ -80,7 +83,11 @@ function App() {
   return (
     <div>
         <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
-        <RecipeTable recipes={filteredRecipes} deleteRecipe={deleteRecipe} editRecipes={editRecipes}/>
+        <deleteRecipeContext.Provider value={deleteRecipe}>
+          <editRecipeContext.Provider  value={editRecipes}>
+            <RecipeTable recipes={filteredRecipes}/>
+          </editRecipeContext.Provider>
+        </deleteRecipeContext.Provider>
         <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>
     </div>
   );

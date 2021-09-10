@@ -1,13 +1,13 @@
 import React from 'react'
 import Recipe from './Recipe'
 
-const RecipeTable = ({recipes, deleteRecipe, editRecipes}) => {
+const RecipeTable = ({recipes}) => {
     
     console.log("Rendering - Recipe Table");
     return (
         <div className='MenuRight'>
             {recipes.map((recipe)=> {
-                return<Recipe key={recipe.id} {...recipe} deleteRecipe={deleteRecipe} editRecipes={editRecipes}></Recipe>
+                return<Recipe key={recipe.id} {...recipe}></Recipe>
             })}
         </div>
     )

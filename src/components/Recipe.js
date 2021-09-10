@@ -1,6 +1,11 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
+import {deleteRecipeContext, editRecipeContext} from '../App'
 
-const Recipe = ({id, name, type, price, days, ingredients, preparation, deleteRecipe, editRecipes}) => {
+const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
+    //Context
+    const deleteRecipe = useContext(deleteRecipeContext);
+    const editRecipe = useContext(editRecipeContext);
+    
     //Toggle menus
     const [description, setDescription] = useState(false);
     const [edit, setEdit] = useState(false);
@@ -21,7 +26,7 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation, deleteRe
             days: +_days,
             ingredients,
         }
-        editRecipes(id, newRecipe);
+        editRecipe(id, newRecipe);
         setEdit(!edit);
     }
 

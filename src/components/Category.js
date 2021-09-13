@@ -2,13 +2,12 @@ import React, {useState, useEffect} from 'react'
 
 const Category = ({name, selectCategory, deselectCategory, id}) => {
     const [selected, setSelected] = useState(false);
-    const [style, setStyle] = useState({color:"black"});
 
     useEffect(() => {
         if(selected) {
-            setStyle({color:"green",fontSize:"30px"});
+            //setStyle({color:"green",fontSize:"30px"});
         } else {
-            setStyle({color:"white", fontSize:"30px"});
+            //setStyle({color:"white", fontSize:"30px"});
         }   
     }, [selected])
 
@@ -22,12 +21,16 @@ const Category = ({name, selectCategory, deselectCategory, id}) => {
         }
     }
 
+    let category_active = selected ? '' : 'flexbox__rightMenu__category--active';
+
     //Render
     console.log("Rendering - Category");
     return (
-        <div style={style} onClick={() => chooseCategory(id)}>
-            {name}
-        </div>
+        <button className={`flexbox__rightMenu__category ${category_active}`} onClick={() => chooseCategory(id)}>
+            <div className={`flexbox__rightMenu__category__name ${category_active}`}>
+                {name}
+            </div>
+        </button>
     )
 }
 

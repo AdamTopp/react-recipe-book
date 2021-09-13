@@ -84,14 +84,16 @@ function App() {
   return (
     <div>
         <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
-        <deleteRecipeContext.Provider value={deleteRecipe}>
-          <editRecipeContext.Provider  value={editRecipes}>
-            <categoriesContext.Provider  value={categories}>
-              <RecipeTable recipes={filteredRecipes}/>
-            </categoriesContext.Provider>
-          </editRecipeContext.Provider>
-        </deleteRecipeContext.Provider>
-        <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>
+        <div className="flexbox">
+          <deleteRecipeContext.Provider value={deleteRecipe}>
+            <editRecipeContext.Provider  value={editRecipes}>
+              <categoriesContext.Provider  value={categories}>
+                <RecipeTable recipes={filteredRecipes}/>
+              </categoriesContext.Provider>
+            </editRecipeContext.Provider>
+          </deleteRecipeContext.Provider>
+          <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>
+        </div>
     </div>
   );
 }

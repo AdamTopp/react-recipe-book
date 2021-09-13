@@ -1,0 +1,92 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+.leftMenu {
+    position: absolute;
+    width: 300px;
+    left: -300px;
+    transition: 2s;
+}
+
+.leftMenu__add, .leftMenu__filter {
+    position: absolute;
+    width: 300px;
+    background: orange;
+    left: -300px;
+    transition: 2s;
+}
+
+.leftMenu--active, .leftMenu__add--active, .leftMenu__filter--active {
+    left:0;
+}
+
+.leftMenu__buttons {
+    position: absolute;
+    top: 30px;
+    left:350px;
+    transition: 2s;
+}
+
+.leftMenu__buttons--active {
+    left:-100px;
+}
+
+.leftMenu__buttons button{
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    transition: 2s;
+}
+
+.leftMenu__buttons--active button{
+    display: block;
+    width: 0px;
+    height: 0px;
+    border-radius: 50%;
+}
+
+button {
+    border:none;
+    background:tomato;
+    color:white;
+}
+
+.flexbox {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.flexbox__recipeTable {
+    background: thistle;
+    width: 60vw;
+    height: 100vh;
+}
+
+.flexbox__rightMenu__category { 
+    display: block;
+    width:5vw;
+    height: 20px;
+    background: rgb(238, 104, 50);
+    transition-duration: 500ms;
+    transition-property: transform;
+    transform-origin: left;
+    transform:scaleX(100%);
+}
+
+.flexbox__rightMenu__category--active {
+    display: block;
+    height: 20px;
+    background: rgb(233, 187, 128);
+    transition-duration: 500ms;
+    transition-property: transform;
+    
+    transform-origin: left;
+    transform:scaleX(20%)
+}
+
+.flexbox__rightMenu__category__name.flexbox__rightMenu__category--active {
+    display: none;
+}

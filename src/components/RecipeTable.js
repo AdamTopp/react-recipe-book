@@ -5,7 +5,7 @@ const RecipeTable = ({recipes}) => {
     
     console.log("Rendering - Recipe Table");
     return (
-        <div className='MenuRight'>
+        <div className='flexbox__recipeTable'>
             {recipes.map((recipe)=> {
                 return<Recipe key={recipe.id} {...recipe}></Recipe>
             })}

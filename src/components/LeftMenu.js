@@ -76,63 +76,57 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
         setIngredient('');
     },[ingredients])
 
+    let menu_active = toggle===1||toggle===2 ? 'leftMenu--active' : '';
+    let menu_buttons_active = toggle===1||toggle===2 ? 'leftMenu__buttons--active' : '';
+    let menu_add_active = toggle===1 ? 'leftMenu__add--active' : '';
+    let menu_filter_active = toggle===2 ? 'leftMenu__filter--active' : '';
+
     //Render
-    console.log("Rendering - Left Menu");
-    if(toggle === 0) { //Menu icons
-        return (
-            <div>
-                <button onClick={() => setToggle(1)}>+</button>
-                <button onClick={() => setToggle(2)}>F</button>
-            </div>
-        )    
-    } else if(toggle === 1) { //Adding menu
-        return (
-            <div className='MenuLeft'>
+    console.log("Rendering - Left Menu");  
+    return (
+        <div className={`leftMenu ${menu_active}`}>
+            <div className={`leftMenu__add ${menu_add_active}`}>
                 <h3>Add new recipes</h3>
                 <div>
-                    <div>
-                        <label htmlFor="name">Name</label>
-                        <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
-                    </div>
-                    <div>
-                        <label htmlFor="type">Category</label>
-                        <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
-                            {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="ingredients">Ingredients</label>
-                        {ingredients.map(ing => <div key={ing.id}>
-                            {ing.name}
-                            <button onClick={() => deleteIngredient(ing.id)}>X</button>
-                        </div>)}
-                        <input type="text" id="ingredients" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
-                        <button onClick={() => addIngredient()}>Add</button>
-                    </div>
-
-                    <div>
-                        <label htmlFor="price">Price</label>
-                        <input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
-                    </div>
-                    <div>
-                        <label htmlFor="days">Days</label>
-                        <input id="days" type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
-                    </div>
-                    <div>
-                        <label htmlFor="description">Description</label>
-                        <div>
-                            <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description..."/>
-                        </div>
-                    </div>
-                    <button className="btn" onClick={() => onSubmit()}>Add</button>
-                    <button onClick={() => setToggle(0)}>Cancel</button>
+                    <label htmlFor="name">Name</label>
+                    <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
                 </div>
+                <div>
+                    <label htmlFor="type">Category</label>
+                    <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
+                        {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
+                    </select>
+                </div>
+
+                <div>
+                    <label htmlFor="ingredients">Ingredients</label>
+                    {ingredients.map(ing => <div key={ing.id}>
+                        {ing.name}
+                        <button onClick={() => deleteIngredient(ing.id)}>X</button>
+                    </div>)}
+                    <input type="text" id="ingredients" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
+                    <button onClick={() => addIngredient()}>Add</button>
+                </div>
+
+                <div>
+                    <label htmlFor="price">Price</label>
+                    <input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
+                </div>
+                <div>
+                    <label htmlFor="days">Days</label>
+                    <input id="days" type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
+                </div>
+                <div>
+                    <label htmlFor="description">Description</label>
+                    <div>
+                        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description..."/>
+                    </div>
+                </div>
+                <button className="btn" onClick={() => onSubmit()}>Add</button>
+                <button onClick={() => setToggle(0)}>Cancel</button>
             </div>
-        )
-    } else if(toggle === 2) { //Filter menu
-        return (
-            <div className='MenuLeft'>
+
+            <div className={`leftMenu__filter ${menu_filter_active}`}>
                 <h3>Filter recipes</h3>
                 <form onSubmit={onFilter}>
                     <div>
@@ -152,8 +146,14 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                 <button onClick={() => onFilterClear()}>Clear</button>
                 <button onClick={() => setToggle(0)}>Cancel</button>
             </div>
-        ) 
-    }
+
+            <div className={`leftMenu__buttons ${menu_buttons_active}`}>
+                <button onClick={() => setToggle(1)}>+</button>
+                <button onClick={() => setToggle(2)}>F</button>
+            </div>
+        </div>
+    )
+        
 
     
 }

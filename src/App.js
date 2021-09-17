@@ -83,7 +83,7 @@ function App() {
   //Return
   return (
     <div>
-        <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
+        
         <div className="flexbox">
           <deleteRecipeContext.Provider value={deleteRecipe}>
             <editRecipeContext.Provider  value={editRecipes}>
@@ -93,6 +93,7 @@ function App() {
             </editRecipeContext.Provider>
           </deleteRecipeContext.Provider>
           <RightMenu addCategory={addCategory} categories={categories} selectCategory={selectCategory} deselectCategory={deselectCategory}/>
+          <LeftMenu addRecipe={addRecipe} categories={categories} setSelectedIngredient={setSelectedIngredient} setSelectedMaxPrice={setSelectedMaxPrice} setSelectedMinPrice={setSelectedMinPrice}/>
         </div>
     </div>
   );

@@ -51,6 +51,9 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
         setEdit(!edit);
     }
 
+    let reicpeDescription = description? 'flexbox__recipeTable__recipe__description--active' : '';
+    let recipeEdit = description? 'flexbox__recipeTable__recipe__info__edit--active' : '';
+
     //Render
     console.log("Rendering - Recipe");
     if(edit) {
@@ -97,39 +100,39 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
                 </div>
             )
     } else {
-        if(description) {
-            return (
-                <div className="Recipe">
-                    <hr></hr>
-                    <p>{name}</p>
-                    <p>{type}</p>
-                    <p>{price} lasts for {days} days</p>
-                    <button className='delete' onClick={() => deleteRecipe(id)}>X</button>
-                    <button className='edit' onClick={() => setEdit(!edit)}>E</button>
-                    <button className='description' onClick={() => setDescription(!description)}>D</button>
-                    <div className="preparation">{preparation}</div>
-                    <div className="ingredients">
+        return (
+            <div className="flexbox__recipeTable__recipe">
+                
+                <div className="flexbox__recipeTable__recipe__info">
+                    <img className="flexbox__recipeTable__recipe__info__image" src="image.png" alt="Recipe"/>
+                    <div className="flexbox__recipeTable__recipe__info__details">
+                        <p>{name}</p>
+                        <p>{type}</p>
+                        <p>Price: {price}</p>
+                        <p>Portions: {days}</p>
+                        <button className='flexbox__recipeTable__recipe__info__delete' onClick={() => deleteRecipe(id)}>X</button>
+                        <button className={`flexbox__recipeTable__recipe__info__edit ${recipeEdit}`} onClick={() => setEdit(!edit)}>E</button>
+                        <button className='flexbox__recipeTable__recipe__info__toggle' onClick={() => setDescription(!description)}>V</button> 
+                    </div>
+                    
+                </div>
+                
+                <div className={`flexbox__recipeTable__recipe__description ${reicpeDescription}`}>
+                    
+                    <div className="flexbox__recipeTable__recipe__description__ingredients">
                         <div>{
                         ingredients.map(element => {
                             return(<p key={element.id}>{element.name}</p>)  
                         })
                         }</div>
                     </div>
+                    <div className="flexbox__recipeTable__recipe__description__preparation">{preparation}</div>
+                    
                 </div>
-            )
-        } else {
-            return (
-                <div className="Recipe">
-                    <hr></hr>
-                    <p>{name}</p>
-                    <p>{type}</p>
-                    <p>{price} lasts for {days} days</p>
-                    <button className='delete' onClick={() => deleteRecipe(id)}>X</button>
-                    <button className='edit' onClick={() => setEdit(!edit)}>E</button>
-                    <button className='description' onClick={() => setDescription(!description)}>D</button>
-                </div>
-            )
-        }
+                <hr></hr>
+            </div>
+
+        )
     }
 
     

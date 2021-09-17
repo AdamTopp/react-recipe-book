@@ -1,13 +1,100 @@
+
+html{
+    background: rgb(45, 45, 46);
+    color: rgb(48, 48, 48);
+    --delay-animation: 1s;
+    --delay-animation-short: 500ms;
+}
+
 *{
     margin: 0;
     padding: 0;
 }
 
+
+
+/*recipes*/
+
+.flexbox__recipeTable__recipe__info {
+    display:flex;
+    position: relative;
+}
+
+.flexbox__recipeTable__recipe__info__details {
+    flex-grow: 1;
+}
+
+.flexbox__recipeTable__recipe__info__delete,.flexbox__recipeTable__recipe__info__toggle,.flexbox__recipeTable__recipe__info__edit {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    position: absolute;
+    
+}
+
+.flexbox__recipeTable__recipe__info__delete{
+    right: 0;
+    top: 0;
+}
+
+.flexbox__recipeTable__recipe__info__toggle{
+    right: 0;
+    bottom: 0;
+}
+
+.flexbox__recipeTable__recipe__info__edit{
+    visibility: hidden;
+}
+
+.flexbox__recipeTable__recipe__info__edit--active{
+    visibility: visible;
+    left: 85px;
+    top: 85px;
+}
+
+.flexbox__recipeTable__recipe__description{
+    visibility: hidden;
+    display:flex;
+    transition-duration: var(--delay-animation-short);
+    transition-property: transform;
+    transform-origin: top;
+    transform:scaleY(0%);
+    height: 0;
+}
+.flexbox__recipeTable__recipe__description--active{
+    visibility: visible;
+    display: flex;
+    transition-duration: 200ms;
+    transition-property: transform;
+    transform-origin: top;
+    transform:scaleY(100%);
+    height: auto;
+}
+
+.flexbox__recipeTable__recipe__description__ingredients{
+    background: grey;
+    min-width: 6vw;
+    min-height: 150px;
+}
+
+.flexbox__recipeTable__recipe__description__preparation{
+    flex-grow: 1;
+    background: rgb(177, 177, 177);
+}
+
+.flexbox__recipeTable__recipe__info__image {
+    width: 120px;
+    height: 120px;
+}
+
+
+
+/*LEFT MENU*/
 .leftMenu {
     position: absolute;
     width: 300px;
     left: -300px;
-    transition: 2s;
+    transition: var(--delay-animation);
 }
 
 .leftMenu__add, .leftMenu__filter {
@@ -15,7 +102,7 @@
     width: 300px;
     background: orange;
     left: -300px;
-    transition: 2s;
+    transition: var(--delay-animation);
 }
 
 .leftMenu--active, .leftMenu__add--active, .leftMenu__filter--active {
@@ -26,7 +113,7 @@
     position: absolute;
     top: 30px;
     left:350px;
-    transition: 2s;
+    transition: var(--delay-animation);
 }
 
 .leftMenu__buttons--active {
@@ -35,10 +122,11 @@
 
 .leftMenu__buttons button{
     display: block;
+    margin-bottom: 0.5vh;
     width: 30px;
     height: 30px;
     border-radius: 50%;
-    transition: 2s;
+    transition: var(--delay-animation);
 }
 
 .leftMenu__buttons--active button{
@@ -60,9 +148,13 @@ button {
     margin-top: 20px;
 }
 .flexbox__recipeTable {
-    background: thistle;
+    background: rgb(226, 226, 226);
     width: 60vw;
     height: 100vh;
+}
+
+.flexbox__rightMenu {
+    width: 8vw;
 }
 
 .flexbox__rightMenu__category { 
@@ -70,23 +162,51 @@ button {
     width:5vw;
     height: 20px;
     background: rgb(238, 104, 50);
-    transition-duration: 500ms;
+    transition-duration: var(--delay-animation-short);
     transition-property: transform;
     transform-origin: left;
     transform:scaleX(100%);
+    margin-top: 10px;
 }
 
 .flexbox__rightMenu__category--active {
     display: block;
     height: 20px;
     background: rgb(233, 187, 128);
-    transition-duration: 500ms;
+    transition-duration: var(--delay-animation-short);
     transition-property: transform;
-    
+    overflow: hidden;
     transform-origin: left;
     transform:scaleX(20%)
 }
 
+
+
 .flexbox__rightMenu__category__name.flexbox__rightMenu__category--active {
     display: none;
 }
+
+.flexbox__rightMenu__addCategory {
+    display: flex;
+    visibility: hidden;
+    height: 0;
+}
+
+.flexbox__rightMenu__addCategory.flexbox__rightMenu__addCategory--active {
+    visibility: visible;
+    height: auto;
+}
+
+.flexbox__rightMenu__toggle {
+    visibility: visible;
+    height: auto;
+}
+
+.flexbox__rightMenu__toggle.flexbox__rightMenu__toggle--hidden {
+    visibility: hidden;
+    height: 0;
+}
+
+
+
+

@@ -106,10 +106,10 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
                 <div className="flexbox__recipeTable__recipe__info">
                     <img className="flexbox__recipeTable__recipe__info__image" src="image.png" alt="Recipe"/>
                     <div className="flexbox__recipeTable__recipe__info__details">
-                        <p>{name}</p>
-                        <p>{type}</p>
-                        <p>Price: {price}</p>
-                        <p>Portions: {days}</p>
+                        <p className="recipe_name">{name}</p>
+                        <p className="recipe_price">Price: {price}</p>
+                        <p className="recipe_portions">Portions: {days}</p>
+                        <div className="recipe_type">{type}</div>
                         <button className='flexbox__recipeTable__recipe__info__delete' onClick={() => deleteRecipe(id)}>X</button>
                         <button className={`flexbox__recipeTable__recipe__info__edit ${recipeEdit}`} onClick={() => setEdit(!edit)}>E</button>
                         <button className='flexbox__recipeTable__recipe__info__toggle' onClick={() => setDescription(!description)}>V</button> 
@@ -129,7 +129,6 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
                     <div className="flexbox__recipeTable__recipe__description__preparation">{preparation}</div>
                     
                 </div>
-                <hr></hr>
             </div>
 
         )

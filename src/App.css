@@ -1,9 +1,11 @@
 
 html{
-    background: rgb(45, 45, 46);
+    background: #f2f2f2;
     color: rgb(48, 48, 48);
     --delay-animation: 1s;
     --delay-animation-short: 500ms;
+    --orange-main: rgb(248, 92, 45);
+    --orange-secondary: rgb(233, 160, 65);
 }
 
 *{
@@ -11,9 +13,42 @@ html{
     padding: 0;
 }
 
-
+body {
+    font-family: Poppins,sans-serif;
+}
 
 /*recipes*/
+.flexbox__recipeTable__recipe {
+    margin-bottom: 16px;
+    padding: 12px;
+    background: rgb(255, 255, 255);
+    box-shadow: 0 0 8px 0 rgb(0 0 0 / 10%);
+}
+
+.recipe_name {
+    letter-spacing: 0.3px;
+    line-height: 1.7;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.recipe_price,.recipe_portions {
+    letter-spacing: 0.1px;
+    line-height: 1.2;
+    font-weight: 200;
+    font-size: 1em;
+}
+
+.recipe_type {
+    background: linear-gradient(45deg, var(--orange-main), var(--orange-secondary));
+    width:fit-content;
+    padding: 0.7em;
+    color: white;
+    border-radius: 2em;
+    margin: 0.5em;
+    font-size: 0.95em;
+    font-weight: 600;
+}
 
 .flexbox__recipeTable__recipe__info {
     display:flex;
@@ -21,6 +56,7 @@ html{
 }
 
 .flexbox__recipeTable__recipe__info__details {
+    padding: 0 8px;
     flex-grow: 1;
 }
 
@@ -100,7 +136,7 @@ html{
 .leftMenu__add, .leftMenu__filter {
     position: absolute;
     width: 300px;
-    background: orange;
+    background: var(--orange-main);
     left: -300px;
     transition: var(--delay-animation);
 }
@@ -138,8 +174,14 @@ html{
 
 button {
     border:none;
-    background:tomato;
+    background:linear-gradient(45deg, var(--orange-main), var(--orange-main));
     color:white;
+    transition: var(--delay-animation-short);
+
+}
+
+button:hover {
+    background: linear-gradient(45deg, var(--orange-main), var(--orange-secondary));
 }
 
 .flexbox {
@@ -148,9 +190,8 @@ button {
     margin-top: 20px;
 }
 .flexbox__recipeTable {
-    background: rgb(226, 226, 226);
+    
     width: 60vw;
-    height: 100vh;
 }
 
 .flexbox__rightMenu {
@@ -161,7 +202,7 @@ button {
     display: block;
     width:5vw;
     height: 20px;
-    background: rgb(238, 104, 50);
+    background: var(--orange-main);
     transition-duration: var(--delay-animation-short);
     transition-property: transform;
     transform-origin: left;
@@ -172,7 +213,7 @@ button {
 .flexbox__rightMenu__category--active {
     display: block;
     height: 20px;
-    background: rgb(233, 187, 128);
+    background: var(--orange-secondary);
     transition-duration: var(--delay-animation-short);
     transition-property: transform;
     overflow: hidden;
@@ -206,7 +247,3 @@ button {
     visibility: hidden;
     height: 0;
 }
-
-
-
-

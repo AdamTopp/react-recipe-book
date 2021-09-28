@@ -25,7 +25,7 @@ const RightMenu = ({addCategory, categories, selectCategory, deselectCategory}) 
             {categories.map(cat => <Category key={cat.id} name={cat.name} id={cat.id} selectCategory={selectCategory} deselectCategory={deselectCategory}/>)}
             <div className={`flexbox__rightMenu__addCategory ${categoryAddMenu}`}>
                 <input className="flexbox__rightMenu__addCategory__name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
-                <button className="flexbox__rightMenu__addCategory__add" onClick={() => onSubmit()}>Add</button>
+                <button className="flexbox__rightMenu__addCategory__add" onClick={() => onSubmit()}>+</button>
             </div>
             <button className={`flexbox__rightMenu__toggle ${categoryAddToggle}`} onClick={() => setToggle(!toggle)}>+</button>
         </div>

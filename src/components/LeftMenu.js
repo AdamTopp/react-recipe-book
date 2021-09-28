@@ -147,10 +147,8 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
                 <button onClick={() => setToggle(0)}>Cancel</button>
             </div>
 
-            <div className={`leftMenu__buttons ${menu_buttons_active}`}>
-                <button onClick={() => setToggle(1)}>+</button>
-                <button onClick={() => setToggle(2)}>F</button>
-            </div>
+                <button className={`leftMenu__button__add ${menu_buttons_active}`} onClick={() => setToggle(1)}>+</button>
+                <button className={`leftMenu__button__filter ${menu_buttons_active}`} onClick={() => setToggle(2)}><div className="leftMenu__burger"></div></button>
         </div>
     )
         

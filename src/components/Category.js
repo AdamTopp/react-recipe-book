@@ -24,7 +24,6 @@ const Category = ({name, selectCategory, deselectCategory, id}) => {
     let category_active = selected ? '' : 'flexbox__rightMenu__category--active';
 
     //Render
-    console.log("Rendering - Category");
     return (
         <button className={`flexbox__rightMenu__category ${category_active}`} onClick={() => chooseCategory(id)}>
             <div className={`flexbox__rightMenu__category__name ${category_active}`}>

@@ -82,69 +82,75 @@ const LeftMenu = ({addRecipe, categories, setSelectedIngredient, setSelectedMaxP
     let menu_filter_active = toggle===2 ? 'leftMenu__filter--active' : '';
 
     //Render
-    console.log("Rendering - Left Menu");  
     return (
         <div className={`leftMenu ${menu_active}`}>
             <div className={`leftMenu__add ${menu_add_active}`}>
                 <h3>Add new recipes</h3>
+                <label htmlFor="name">Name</label>
                 <div>
-                    <label htmlFor="name">Name</label>
                     <input id="name" type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Name..."/>
                 </div>
+                <label htmlFor="type">Category</label>
                 <div>
-                    <label htmlFor="type">Category</label>
+                    
                     <select id="type" value={type} onChange={(e) => setType(e.target.value)}>
                         {categories.map(cat => <option key={cat.id} value={cat.name}>{cat.name}</option>)}
                     </select>
                 </div>
+                <label htmlFor="ingredients">Ingredients</label>
 
                 <div>
-                    <label htmlFor="ingredients">Ingredients</label>
                     {ingredients.map(ing => <div key={ing.id}>
+                        <button className="deleteIngredient" onClick={() => deleteIngredient(ing.id)}></button>
                         {ing.name}
-                        <button onClick={() => deleteIngredient(ing.id)}>X</button>
+                        
                     </div>)}
                     <input type="text" id="ingredients" value={ingredient} onChange={(e) => setIngredient(e.target.value)} placeholder="Name..."/>
-                    <button onClick={() => addIngredient()}>Add</button>
+                    <button id="ingredientsAdd"onClick={() => addIngredient()}>+</button>
                 </div>
+                <label htmlFor="price">Price</label>
 
                 <div>
-                    <label htmlFor="price">Price</label>
                     <input id="price" type="number" value={price} onChange={(e) => setPrice(e.target.value)} placeholder="Price..."/>
                 </div>
+                <label htmlFor="days">Days</label>
+
                 <div>
-                    <label htmlFor="days">Days</label>
                     <input id="days" type="number" value={days} onChange={(e) => setDays(e.target.value)} placeholder="Days..."/>
+
                 </div>
+                <label htmlFor="description">Description</label>
+
                 <div>
-                    <label htmlFor="description">Description</label>
-                    <div>
-                        <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description..."/>
-                    </div>
+                <textarea id="description" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description..."/>
                 </div>
                 <button className="btn" onClick={() => onSubmit()}>Add</button>
-                <button onClick={() => setToggle(0)}>Cancel</button>
+                <button className="btn" onClick={() => setToggle(0)}>Cancel</button>
             </div>
 
             <div className={`leftMenu__filter ${menu_filter_active}`}>
                 <h3>Filter recipes</h3>
                 <form onSubmit={onFilter}>
+                    <label htmlFor="ingredient">Ingredient</label>
+
                     <div>
-                        <label htmlFor="ingredient">Ingredient</label>
-                        <input type="text" value={filteredIngredient} onChange={(e) => setFilteredIngredient(e.target.value)} placeholder="Ingredient..."/>
+                        <input id="ingredient" type="text" value={filteredIngredient} onChange={(e) => setFilteredIngredient(e.target.value)} placeholder="Ingredient..."/>
                     </div>
+                    <label htmlFor="minPrice">Min</label>
+
                     <div>
-                        <label htmlFor="minPrice">Min</label>
                         <input type="number" value={minPrice} onChange={(e) => setMinPrice(e.target.value)} id="minPrice" required="required" placeholder="Min Price..."/>
+
                     </div>
+                    <label htmlFor="maxPrice">Max</label>
+
                     <div>
-                        <label htmlFor="maxPrice">Max</label>
                         <input type="number" value={maxPrice} onChange={(e) => setMaxPrice(e.target.value)} id="maxPrice" required="required" placeholder="Max Price..."/>
                     </div>
                     <button className="btn">Filter</button>
                 </form>
-                <button onClick={() => onFilterClear()}>Clear</button>
-                <button onClick={() => setToggle(0)}>Cancel</button>
+                <button className="btn" onClick={() => onFilterClear()}>Clear</button>
+                <button className="btn" onClick={() => setToggle(0)}>Cancel</button>
             </div>
 
                 <button className={`leftMenu__button__add ${menu_buttons_active}`} onClick={() => setToggle(1)}>+</button>

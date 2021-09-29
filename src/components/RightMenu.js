@@ -19,7 +19,6 @@ const RightMenu = ({addCategory, categories, selectCategory, deselectCategory}) 
     let categoryAddToggle = toggle ? 'flexbox__rightMenu__toggle--hidden':''
 
     //Render
-    console.log("Rendering - Right Menu");
     return (
         <div className="flexbox__rightMenu">
             {categories.map(cat => <Category key={cat.id} name={cat.name} id={cat.id} selectCategory={selectCategory} deselectCategory={deselectCategory}/>)}

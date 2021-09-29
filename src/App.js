@@ -59,21 +59,37 @@ function App() {
     return check;
   }
 
+  const checkIngredients = (ingredients, ingredient) => {
+    let check = false;
+
+    for(let i=0; i<ingredients.length; i++) {
+      if(ingredients[i].name === ingredient) {
+        check = true;
+      }
+    }
+    return check;
+  }
+
   //Filter and Category changes
   useEffect(() => {
     if(selectedCategories.length === 0) {
       if(selectedIngredient === '') {
+        console.log("A")
         const newRecipes = recipes.filter(r => r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       } else {
-        const newRecipes = recipes.filter(r => r.ingredients.includes(selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);;
+        console.log("B")
+        console.log(selectedIngredient);
+        const newRecipes = recipes.filter(r => checkIngredients(r.ingredients ,selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);;
         setFilteredRecipes(newRecipes);
       }
     } else {
       if(selectedIngredient === '') {
+        console.log("C")
         const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       } else {
+        console.log("D")
         const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.ingredients.includes(selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       }

@@ -37,6 +37,12 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
         _setIngredient('');
     },[ingredients])
 
+    const handleEdit = (ed, e) => {
+        e.stopPropagation();
+        setEdit(!ed);
+
+    }
+
     const onSubmit = (e) => {
         const newRecipe = {
             id,
@@ -55,7 +61,6 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
     let recipeEdit = description? 'flexbox__recipeTable__recipe__info__edit--active' : '';
 
     //Render
-    console.log("Rendering - Recipe");
     if(edit) {
             return (
                 <div className="Recipe">
@@ -106,12 +111,16 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
                 <div className="flexbox__recipeTable__recipe__info">
                     <img className="flexbox__recipeTable__recipe__info__image" src="image.png" alt="Recipe"/>
                     <div className="flexbox__recipeTable__recipe__info__details" onClick={() => setDescription(!description)}>
-                        <p className="recipe_name">{name}</p>
+                        <span className="recipe_name">{name}</span>
+                        <button className={`flexbox__recipeTable__recipe__info__edit ${recipeEdit}`} onClick={(e) => handleEdit(edit, e)}>
+                            <div className="container_recipeEdit">
+                                <div className="recipeEdit"></div>
+                            </div>
+                        </button>
                         <p className="recipe_price">Price: {price}</p>
                         <p className="recipe_portions">Portions: {days}</p>
                         <div className="recipe_type">{type}</div>
                         <button className='flexbox__recipeTable__recipe__info__delete' onClick={() => deleteRecipe(id)}></button>
-                        <button className={`flexbox__recipeTable__recipe__info__edit ${recipeEdit}`} onClick={() => setEdit(!edit)}>E</button>
                     </div>
                     
                 </div>
@@ -119,11 +128,11 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
                 <div className={`flexbox__recipeTable__recipe__description ${reicpeDescription}`}>
                     
                     <div className="flexbox__recipeTable__recipe__description__ingredients">
-                        <div>{
+                        <ul>{
                         ingredients.map(element => {
-                            return(<p key={element.id}>{element.name}</p>)  
+                            return(<li key={element.id}>{element.name}</li>)  
                         })
-                        }</div>
+                        }</ul>
                     </div>
                     <div className="flexbox__recipeTable__recipe__description__preparation">{preparation}</div>
                     

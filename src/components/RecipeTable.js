@@ -3,7 +3,6 @@ import Recipe from './Recipe'
 
 const RecipeTable = ({recipes}) => {
     
-    console.log("Rendering - Recipe Table");
     return (
         <div className='flexbox__recipeTable'>
             {recipes.map((recipe)=> {

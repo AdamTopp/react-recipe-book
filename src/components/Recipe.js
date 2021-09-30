@@ -37,7 +37,7 @@ const Recipe = ({id, name, type, price, days, ingredients, preparation}) => {
     }
 
     const deleteIngredient = (id) => {
-        const newIngredients = ingredients.filter(ing => ing.id !== id);
+        const newIngredients = _ingredients.filter(ing => ing.id !== id);
         _setIngredients(newIngredients);
     }
 

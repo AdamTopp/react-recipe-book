@@ -13,7 +13,7 @@ function App() {
 
   const [recipes, setRecipes] = useState(data);
   const [filteredRecipes, setFilteredRecipes] = useState(data);
-  const [categories, setCategories] = useState([{id:1, name:"Dinner"}, {id:2, name:"Breakfast"}]);
+  const [categories, setCategories] = useState([{id:1, name:"Dinner"}, {id:2, name:"Breakfast"}, {id:3, name:"Snacks"}]);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const [selectedIngredient, setSelectedIngredient] = useState('');
   const [selectedMinPrice, setSelectedMinPrice] = useState(0);

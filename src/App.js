@@ -74,22 +74,17 @@ function App() {
   useEffect(() => {
     if(selectedCategories.length === 0) {
       if(selectedIngredient === '') {
-        console.log("A")
         const newRecipes = recipes.filter(r => r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       } else {
-        console.log("B")
-        console.log(selectedIngredient);
         const newRecipes = recipes.filter(r => checkIngredients(r.ingredients ,selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);;
         setFilteredRecipes(newRecipes);
       }
     } else {
       if(selectedIngredient === '') {
-        console.log("C")
         const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       } else {
-        console.log("D")
         const newRecipes = recipes.filter(r => checkCategories(selectedCategories, r.type) && r.ingredients.includes(selectedIngredient) && r.price>=selectedMinPrice && r.price<=selectedMaxPrice);
         setFilteredRecipes(newRecipes);
       }

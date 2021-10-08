@@ -21,7 +21,7 @@ The menu to the right of the displayed recipes is used to create and choose
 categories of recipes that we want to display.
 
 If the recipe changes we can edit its' information by clicking the pen icon
-on an expanded recipe (to expand a recipe just click onit)
+on an expanded recipe (to expand a recipe just click on it)
 
 ## Used technologies
  - React
